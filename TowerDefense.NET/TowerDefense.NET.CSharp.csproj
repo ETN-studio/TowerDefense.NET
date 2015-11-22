@@ -69,7 +69,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\CameraController.cs" />
+    <Compile Include="Assets\Scripts\Commands\CommandController.cs" />
+    <Compile Include="Assets\Scripts\Commands\DestroyCommand.cs" />
     <Compile Include="Assets\Scripts\Commands\MoveCommand.cs" />
+    <Compile Include="Assets\Scripts\Commands\SpawnCommand.cs" />
     <Compile Include="Assets\Scripts\GestionApp.cs" />
     <Compile Include="Assets\Scripts\Interfaces\ICommand.cs" />
     <Compile Include="Assets\Scripts\spawnOnClick.cs" />

@@ -4,12 +4,12 @@ using System;
 
 public class CameraController : MonoBehaviour {
     #region Declaration Variables
-    public float verticalAngle=40f;
-    public float fluiditéCamera=5f;    
+    public float verticalAngle=60f;
+    public float fluiditéCamera=0.7f;    
     public float maxZoomDistance = 30;
     public float minZoomDistance = 5f;
     public float ZoomSpeed = 5f;
-    public float mouvementSpeed=5f;
+    public float vitesseMouvCamera = 5f;
     public float fluiditéZoom=5f;
     public Transform cible { get; private set; }
 
@@ -17,7 +17,6 @@ public class CameraController : MonoBehaviour {
     private float distance;
     private Vector2 axeSouris;
     private float mouseWheel;
-    private float vitesseMouvCamera;
     private float vitesseMouvCameraTemp;
     private Transform tr;
 
@@ -36,14 +35,16 @@ public class CameraController : MonoBehaviour {
         cam.transform.eulerAngles = new Vector3(verticalAngle, 0, 0);
         tr = GetComponent<Transform>();
         RaycastHit hit;
-        if (Physics.Raycast(tr.position, tr.forward, out hit))
+        if (Physics.Raycast(tr.position, tr.forward, out hit,999f))
         {
             distance = hit.distance;
             distanceDefault = distance;
         }
         else
         {
-            throw new Exception("ALERT");
+#if UNITY_EDITOR
+            throw new Exception("La Camera ne regarde pas le terrain");
+#endif
             //distanceDefault = tr.position.y;
             //distance = distanceDefault;
         }
@@ -91,7 +92,9 @@ public class CameraController : MonoBehaviour {
         if (cible == null)
         {
             if (axeSouris.magnitude > 0)
-                tr.position = Vector3.Lerp(tr.position, tr.position + new Vector3(axeSouris.x * mouvementSpeed * Time.deltaTime, 0, axeSouris.y * mouvementSpeed * Time.deltaTime), fluiditéCamera);
+            {
+                tr.position = Vector3.Lerp(tr.position, tr.position + new Vector3(axeSouris.x * vitesseMouvCameraTemp * Time.deltaTime, 0, axeSouris.y * vitesseMouvCamera * Time.deltaTime), fluiditéCamera);
+            }
         }
         else
         {
