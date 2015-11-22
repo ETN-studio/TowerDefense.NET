@@ -88,7 +88,7 @@ public class CameraController : MonoBehaviour {
             distance += zoomVal;
             tr.position = Vector3.Lerp(tr.position,tr.position+(tr.forward * zoomVal),fluiditéZoom);
         }
-        if (cible != null)
+        if (cible == null)
         {
             if (axeSouris.magnitude > 0)
                 tr.position = Vector3.Lerp(tr.position, tr.position + new Vector3(axeSouris.x * mouvementSpeed * Time.deltaTime, 0, axeSouris.y * mouvementSpeed * Time.deltaTime), fluiditéCamera);
